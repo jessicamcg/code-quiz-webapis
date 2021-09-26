@@ -1,0 +1,29 @@
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    text-align: center;
+    margin: 50px;
+}
+
+h1, p {
+    padding: 20px;
+}
+
+.choices {
+    margin: 20px 80px;
+}
+
+.choices button{
+    display: block;
+    background-color: green;
+    color: white;
+    min-width: 100px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
