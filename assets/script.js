@@ -3,7 +3,8 @@ var startBtn = document.querySelector(".start-btn");
 var title = document.querySelector("h1");
 var result = document.getElementById("result");
 var choiceBtn;
-
+var userChoice = '';
+var secondsLeft = 60;
 var highscores
 
 var questionBank = [
@@ -23,7 +24,6 @@ var questionBank = [
         answer: 'c'
     }
 ];
-
 
 
 
@@ -54,16 +54,21 @@ function startQuiz() {
 
 
 function setTime() {
-    var secondsLeft = 60;
+
     var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = 'Time: ' + secondsLeft;
 
     if(secondsLeft <= 0) {
       clearInterval(timerInterval);
+      timesUp();
     };
 
   }, 1000);
+};
+
+function timesUp() {
+
 };
 
 function renderQuestion() {
@@ -72,37 +77,49 @@ function renderQuestion() {
     renderChoices();
 };
 
-function renderChoices() {
+function renderChoices() { 
     for (var i =0; i<questionBank[0]['choices'].length; i++) {
         choiceBtn = document.createElement('button');
         document.querySelector('.choices').appendChild(choiceBtn);
         choiceBtn.setAttribute('id',questionBank[0]['choices'][i]);
         document.getElementById(questionBank[0]['choices'][i]).textContent = questionBank[0]['choices'][i];
-        // console.log(questionBank[0]['choices'][i]);
-        choiceBtn.addEventListener('click',checkAnswer);
     };
+    var choiceA = document.getElementById('a');
+    var choiceB = document.getElementById('b');
+    var choiceC = document.getElementById('c');
+    var choiceD = document.getElementById('d');
+
+    choiceA.addEventListener('click', function () {
+        userChoice = 'a';
+        checkAnswer();
+    });
+    choiceB.addEventListener('click', function () {
+        userChoice = 'b';
+        checkAnswer();
+    });
+    choiceC.addEventListener('click', function () {
+        userChoice = 'c';
+        checkAnswer();
+    });
+    choiceD.addEventListener('click', function () {
+        userChoice = 'd';
+        checkAnswer();
+    });
     
 };
 
 
-function checkAnswer() { 
-    for (var j=0; j<questionBank[0]['choices'].length; j++) {
-        choiceBtn = document.getElementById(questionBank[0]['choices'][j]).textContent;
-        // not working properly, 
-
-
-    };    
-            console.log(choiceBtn);
-        console.log(questionBank[0]['answer']);
-        if ( choiceBtn[j] == questionBank[0]['answer'] ) {
-            //move to next qustion
-            result.textContent = 'Correct!'
-        } else {
-            //subtract from the timer
-            result.textContent = 'Wrong!'
-        };
-
+function checkAnswer() {
+    console.log(userChoice);
+    var correctAnswer = questionBank[0]['answer']
+    if (userChoice == correctAnswer) {
+        result.textContent = "correct"
+    } else {
+        result.textContent = 'wrong'
+        secondsLeft = secondsLeft - 5;
+    };
 };
+
 
 
 function setHighscores() {
