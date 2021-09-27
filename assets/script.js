@@ -3,8 +3,11 @@ var startBtn = document.querySelector(".start-btn");
 var title = document.querySelector("h1");
 var caption = document.querySelector('p');
 var result = document.getElementById("result");
-var choiceDiv = document.getElementsByClassName(".choices");
+var choiceDiv = document.querySelector(".choices");
 var choiceBtn;
+var form;
+var enterHighscore;
+var submitHighscore;
 var userChoice = '';
 var secondsLeft = 75;
 var highscores;
@@ -69,10 +72,9 @@ function startQuiz() {
     startBtn.remove();
 };
 
+var timerInterval = setInterval(setTime,1000);
 
 function setTime() {
-
-    var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = 'Time: ' + secondsLeft + ' seconds left';
 
@@ -80,9 +82,8 @@ function setTime() {
       clearInterval(timerInterval);
       endGame();
     };
-
-  }, 1000);
 };
+
 
 
 function renderQuestion() { // question 1
@@ -156,22 +157,44 @@ function nextQuestion() {
 function endGame() { 
     title.textContent = "Quiz over!"
     caption.textContent = "Your final score is: " + secondsLeft;
-    //stop timer
-    console.log(choiceDiv.children); // ??
-    if (choiceDiv.childElementCount > 0) { // not working yet, trying to remove buttons from endGame screen
-        choiceDiv.innerHtml = '';
-        console.log('test');
+    clearInterval(timerInterval);
+    if (choiceDiv.childElementCount > 0) { 
+        choiceDiv.remove();
     };
     if (secondsLeft > 0) {
-
+        
+        result.textContent = 'Enter initials: ';
+        form = document.createElement('form');
+        result.appendChild(form);
+        enterHighscore = document.createElement('input');
+        result.appendChild(enterHighscore);
+        enterHighscore.setAttribute('type','text');
+        submitHighscore = document.createElement('input');
+        result.appendChild(submitHighscore);
+        submitHighscore.setAttribute('type','submit');
+        submitHighscore.setAttribute('value','Submit');
+        submitHighscore.addEventListener('click', setHighscores);
+        
     } else {
-        // retry quiz to get a better score
+        result.textContent = 'Final score: 0. Try again for a better score'
     };
-    //option to view high scores or retry quiz
+    //button option to view high scores or retry quiz
 };
 
 function setHighscores() {
- //localStorage.setItem("highscores");
+    // form.submit(); idk what .submit(); does
+    localStorage.setItem("highscores",secondsLeft);
+    console.log('test');
+    viewHighscores();
+};
+
+function viewHighscores() {
+    localStorage.getItem("highscores",secondsLeft);
+    console.log('test');
+};
+
+function resetHighscores() {
+    localStorage.clear(); // still need to test
 };
 
 
