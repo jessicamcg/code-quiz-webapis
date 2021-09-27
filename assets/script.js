@@ -2,10 +2,11 @@ var timeEl = document.querySelector(".timer");
 var startBtn = document.querySelector(".start-btn");
 var title = document.querySelector("h1");
 var result = document.getElementById("result");
+var choiceDiv = document.querySelectorAll(".choices");
 var choiceBtn;
 var userChoice = '';
-var secondsLeft = 60;
-var highscores
+var secondsLeft = 75;
+var highscores;
 
 var questionBank = [
     {
@@ -15,20 +16,35 @@ var questionBank = [
     },
     {
         question: 'question 2?',
-        choices: ['a','b','c','d'],
+        choices: ['2a','2b','2c','2d'],
         answer: 'a'
     },
     {
         question: 'question 3?',
-        choices: ['a','b','c','d'],
+        choices: ['3a','3b','3c','3d'],
         answer: 'c'
+    },
+    {
+        question: 'question 4?',
+        choices: ['4a','4b','4c','4d'],
+        answer: 'd'
+    },
+    {
+        question: 'question 5?',
+        choices: ['5a','5b','5c','5d'],
+        answer: 'c'
+    },
+    {
+        question: 'question 6?',
+        choices: ['6a','6b','6c','6d'],
+        answer: 'a'
+    },
+    {
+        question: 'question 7?',
+        choices: ['7a','7b','7c','7d'],
+        answer: 'a'
     }
 ];
-
-
-
-
-
 
 
 function init() {
@@ -57,33 +73,31 @@ function setTime() {
 
     var timerInterval = setInterval(function() {
     secondsLeft--;
-    timeEl.textContent = 'Time: ' + secondsLeft;
+    timeEl.textContent = 'Time: ' + secondsLeft + ' seconds left';
 
     if(secondsLeft <= 0) {
       clearInterval(timerInterval);
-      timesUp();
+      endGame();
     };
 
   }, 1000);
 };
 
-function timesUp() {
 
-};
-
-function renderQuestion() {
-    title.textContent = questionBank[0]['question'];
+function renderQuestion() { // question 1
+    title.textContent = questionBank[index]['question'];
     document.querySelector('p').textContent = '';
     renderChoices();
 };
 
 function renderChoices() { 
-    for (var i =0; i<questionBank[0]['choices'].length; i++) {
+    for (var i =0; i<questionBank[index]['choices'].length; i++) {
         choiceBtn = document.createElement('button');
         document.querySelector('.choices').appendChild(choiceBtn);
-        choiceBtn.setAttribute('id',questionBank[0]['choices'][i]);
-        document.getElementById(questionBank[0]['choices'][i]).textContent = questionBank[0]['choices'][i];
+        choiceBtn.setAttribute('id',questionBank[index]['choices'][i]);
+        document.getElementById(questionBank[index]['choices'][i]).textContent = questionBank[index]['choices'][i];
     };
+    
     var choiceA = document.getElementById('a');
     var choiceB = document.getElementById('b');
     var choiceC = document.getElementById('c');
@@ -108,19 +122,45 @@ function renderChoices() {
     
 };
 
-
+var index = 0; 
+var correctAnswer = questionBank[index]['answer']
 function checkAnswer() {
-    console.log(userChoice);
-    var correctAnswer = questionBank[0]['answer']
-    if (userChoice == correctAnswer) {
-        result.textContent = "correct"
+
+    if (index == questionBank.length - 1) {
+        endGame();
     } else {
-        result.textContent = 'wrong'
-        secondsLeft = secondsLeft - 5;
+        if (userChoice == correctAnswer) {
+            result.textContent = "Previous Question: Correct";
+            index ++;
+            nextQuestion();
+        } else if (userChoice != correctAnswer) {
+            result.textContent = 'Previous Question: Wrong'
+            secondsLeft = secondsLeft - 10;
+            index++;
+            nextQuestion();
+        };
     };
 };
 
 
+function nextQuestion() {
+    title.textContent = questionBank[index]['question']
+    document.getElementById('a').textContent = questionBank[index]['choices'][0];
+    document.getElementById('b').textContent = questionBank[index]['choices'][1];
+    document.getElementById('c').textContent = questionBank[index]['choices'][2];
+    document.getElementById('d').textContent = questionBank[index]['choices'][3];
+    correctAnswer = questionBank[index]['answer'];
+};
+
+function endGame() {
+    console.log('test');
+    if (secondsLeft > 0) {
+
+    } else {
+        // retry quiz to get a better score
+    };
+    //option to view high scores or retry quiz
+};
 
 function setHighscores() {
  //localStorage.setItem("highscores");
