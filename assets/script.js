@@ -1,8 +1,9 @@
 var timeEl = document.querySelector(".timer");
 var startBtn = document.querySelector(".start-btn");
 var title = document.querySelector("h1");
+var caption = document.querySelector('p');
 var result = document.getElementById("result");
-var choiceDiv = document.querySelectorAll(".choices");
+var choiceDiv = document.getElementsByClassName(".choices");
 var choiceBtn;
 var userChoice = '';
 var secondsLeft = 75;
@@ -86,7 +87,7 @@ function setTime() {
 
 function renderQuestion() { // question 1
     title.textContent = questionBank[index]['question'];
-    document.querySelector('p').textContent = '';
+    caption.textContent = '';
     renderChoices();
 };
 
@@ -152,8 +153,15 @@ function nextQuestion() {
     correctAnswer = questionBank[index]['answer'];
 };
 
-function endGame() {
-    console.log('test');
+function endGame() { 
+    title.textContent = "Quiz over!"
+    caption.textContent = "Your final score is: " + secondsLeft;
+    //stop timer
+    console.log(choiceDiv.children); // ??
+    if (choiceDiv.childElementCount > 0) { // not working yet, trying to remove buttons from endGame screen
+        choiceDiv.innerHtml = '';
+        console.log('test');
+    };
     if (secondsLeft > 0) {
 
     } else {
