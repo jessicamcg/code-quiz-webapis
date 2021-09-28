@@ -18,41 +18,42 @@ var returnFirstPageBtn;
 var userChoice = '';
 var secondsLeft = 75;
 var highscores =[];
+var choiceClass = ['a','b','c','d'];
 
 var questionBank = [
     {
         question: 'What does HTML stand for?',
-        choices: ['a','b','c','d'],
+        choices: ['Handle Tag Marker Lag','HyperText Markup Language','Host Text Method Landing','Hacking The Main Line'],
         answer: 'b'
     },
     {
         question: 'What does CSS stand for?',
-        choices: ['2a','2b','2c','2d'],
+        choices: ['Casading Style Sheet','Code Sign Simplified','Capital Source Symbol','Code Script Selector'],
         answer: 'a'
     },
     {
         question: 'Given the following array: ["apples", "oranges", "banana"], at what index is "banana" located?',
-        choices: ['3a','3b','3c','3d'],
-        answer: 'c'
+        choices: ['1','2','3','4'],
+        answer: 'b'
     },
     {
         question: 'Which of the following is NOT a type of variable in javascript?',
-        choices: ['4a','4b','4c','4d'],
+        choices: ['string','number','boolean','python'],
         answer: 'd'
     },
     {
         question: 'What do you call a mistake in code?',
-        choices: ['5a','5b','5c','5d'],
+        choices: ['blemish','insect','bug','weed'],
         answer: 'c'
     },
     {
         question: 'Which of the following is NOT a type of loop?',
-        choices: ['6a','6b','6c','6d'],
+        choices: ['event listener','for','while','do-while'],
         answer: 'a'
     },
     {
         question: 'In javascript, which of the following symbols is accociated with calling an element by its id?',
-        choices: ['7a','7b','7c','7d'],
+        choices: ['#','^','~','*'],
         answer: 'a'
     }
 ];
@@ -96,8 +97,9 @@ function renderChoices() {
     for (var i =0; i<questionBank[index]['choices'].length; i++) {
         choiceBtn = document.createElement('button');
         document.querySelector('.choices').appendChild(choiceBtn);
-        choiceBtn.setAttribute('id',questionBank[index]['choices'][i]);
-        document.getElementById(questionBank[index]['choices'][i]).textContent = questionBank[index]['choices'][i];
+        choiceBtn.setAttribute('id',choiceClass[i]);
+        document.getElementById(choiceClass[i]).textContent = questionBank[index]['choices'][i];
+        console.log(choiceClass[i]);
     };
     
     var choiceA = document.getElementById('a');
