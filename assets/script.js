@@ -134,12 +134,16 @@ function checkAnswer() {
         endGame();
     } else {
         if (userChoice == correctAnswer) {
+            $("#result").fadeIn();
             result.textContent = "Previous Question: Correct";
+            $("#result").fadeOut();
             index ++;
             nextQuestion();
         } else if (userChoice != correctAnswer) {
             result.textContent = 'Previous Question: Wrong'
+            $("#result").fadeIn();
             secondsLeft = secondsLeft - 10;
+            $("#result").fadeOut();
             index++;
             nextQuestion();
         };

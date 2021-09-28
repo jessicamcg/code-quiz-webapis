@@ -18,5 +18,5 @@ When the quiz is over the user can save their initials and score.
 ## Live Link 
 https://jessicamcg.github.io/code-quiz-webapis/
 
-!['./assets/quizStartPage.png]
-!['./assets/viewHighScores.png']
+![Start Page](https://github.com/jessicamcg/code-quiz-webapis/blob/main/assets/quizStartPage.png)
+![Empty 'View Highscores' Page](https://github.com/jessicamcg/code-quiz-webapis/blob/main/assets/viewHighScores.png)
