@@ -3,21 +3,22 @@ var startBtn = document.querySelector(".start-btn");
 var title = document.querySelector("h1");
 var caption = document.querySelector('p');
 var result = document.getElementById("result");
+var resultDiv = document.getElementById("result-div")
 var choiceDiv = document.querySelector(".choices");
 var viewHSBtn = document.querySelector(".highscores");
+var highscoresDiv = document.getElementById('#highscores');
 var choiceBtn;
 var form;
 var enterHighscore;
 var submitHighscore;
 var timerInterval;
-var storedScores;
+var storedScores = [];
 var initials;
 var newScore;
 var clearScoresBtn;
 var returnFirstPageBtn;
 var userChoice = '';
 var secondsLeft = 75;
-var highscores =[];
 var choiceClass = ['a','b','c','d'];
 
 var questionBank = [
@@ -64,7 +65,7 @@ function init() {
 };
 
 function getHighscores() {
-    storedScores = JSON.parse(localStorage.getItem("highscores"));
+    storedScores = JSON.parse(localStorage.getItem("storedScores")) || [];
 };
 
 function startQuiz() {
@@ -99,7 +100,6 @@ function renderChoices() {
         document.querySelector('.choices').appendChild(choiceBtn);
         choiceBtn.setAttribute('id',choiceClass[i]);
         document.getElementById(choiceClass[i]).textContent = questionBank[index]['choices'][i];
-        console.log(choiceClass[i]);
     };
     
     var choiceA = document.getElementById('a');
@@ -166,13 +166,14 @@ function endGame() {
     if (secondsLeft > 0) {
         caption.textContent = "Your final score is: " + secondsLeft;
         result.textContent = 'Enter initials: ';
+        result.style.paddingBottom = '0';
         form = document.createElement('form');
-        result.appendChild(form);
+        resultDiv.appendChild(form);
         enterHighscore = document.createElement('input');
-        result.appendChild(enterHighscore);
+        resultDiv.appendChild(enterHighscore);
         enterHighscore.setAttribute('type','text');
         submitHighscore = document.createElement('input');
-        result.appendChild(submitHighscore);
+        resultDiv.appendChild(submitHighscore);
         submitHighscore.setAttribute('type','submit');
         submitHighscore.setAttribute('value','Submit');
         submitHighscore.classList.add('submit-h-s-btn');
@@ -180,15 +181,16 @@ function endGame() {
         
     } else {
         result.textContent = 'Final score: 0. Try again for a better score'
+        viewHighscores();
     };
-    //button option to view high scores or retry quiz
 };
 
 function setHighscores() {
     initials = enterHighscore.value;
     newScore = {"secondsLeft": secondsLeft, "initials": initials};
-    highscores.push(newScore);
-    localStorage.setItem("highscores", JSON.stringify(highscores))
+    storedScores.push(newScore);
+    localStorage.setItem("storedScores", JSON.stringify(storedScores));
+    storedScores = JSON.parse(localStorage.getItem("storedScores"));
     form.remove();
     enterHighscore.remove();
     submitHighscore.remove();
@@ -200,22 +202,25 @@ function viewHighscores() {
     title.textContent = 'Highscores: ';
     startBtn.remove();
 
-    storedScores = JSON.parse(localStorage.getItem("highscores"));
     if (storedScores === null) {
         caption.textContent = 'No scores to display';
     } else {
-        for (var j=0; j<storedScores.length; j++)
-        caption.textContent = storedScores[j].initials + ' : ' + storedScores[j].secondsLeft;
+        for (var j=0; j<storedScores.length; j++) {
+        highscoresDiv = document.createElement('p');
+        caption.appendChild(highscoresDiv);
+        highscoresDiv.setAttribute('id',j);
+        document.getElementById(j).textContent = storedScores[j].initials + ' : ' + storedScores[j].secondsLeft;
+        };
     };
     // return to first page button
     returnFirstPageBtn = document.createElement('button');
     returnFirstPageBtn.textContent = 'Return to first page'
-    result.appendChild(returnFirstPageBtn);
+    resultDiv.appendChild(returnFirstPageBtn);
     returnFirstPageBtn.addEventListener('click', returnFirstPage)
     // clear highscores button
     clearScoresBtn = document.createElement('button');
     clearScoresBtn.textContent = 'Clear Highscores';
-    result.appendChild(clearScoresBtn);
+    resultDiv.appendChild(clearScoresBtn);
     clearScoresBtn.addEventListener('click',clearHighscores);
 
 };

@@ -30,7 +30,7 @@ p {
 }
 
 .choices button,
-#result button,
+#result-div button,
 .start-btn,
 .submit-h-s-btn {
     display: block;
@@ -42,8 +42,8 @@ p {
     border-radius: 5px;
 }
 
-#result {
-    display: flex;
+#result-div {
+    display: inline-grid;
     justify-content: center;
     align-items: center;
 }
@@ -54,7 +54,7 @@ p {
 
 
 button:hover,
-#result button:hover,
+#result-div button:hover,
 .submit-h-s-btn:hover {
     background-color: rgb(109, 163, 109);
     transition: all 0.5s ease-in-out;
