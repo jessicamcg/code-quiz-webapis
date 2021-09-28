@@ -201,6 +201,7 @@ function setHighscores() {
 function viewHighscores() {
     title.textContent = 'Highscores: ';
     startBtn.remove();
+    caption.textContent = '';
 
     if (storedScores === null) {
         caption.textContent = 'No scores to display';
