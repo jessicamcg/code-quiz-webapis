@@ -21,37 +21,37 @@ var highscores =[];
 
 var questionBank = [
     {
-        question: 'question 1?',
+        question: 'What does HTML stand for?',
         choices: ['a','b','c','d'],
         answer: 'b'
     },
     {
-        question: 'question 2?',
+        question: 'What does CSS stand for?',
         choices: ['2a','2b','2c','2d'],
         answer: 'a'
     },
     {
-        question: 'question 3?',
+        question: 'Given the following array: ["apples", "oranges", "banana"], at what index is "banana" located?',
         choices: ['3a','3b','3c','3d'],
         answer: 'c'
     },
     {
-        question: 'question 4?',
+        question: 'Which of the following is NOT a type of variable in javascript?',
         choices: ['4a','4b','4c','4d'],
         answer: 'd'
     },
     {
-        question: 'question 5?',
+        question: 'What do you call a mistake in code?',
         choices: ['5a','5b','5c','5d'],
         answer: 'c'
     },
     {
-        question: 'question 6?',
+        question: 'Which of the following is NOT a type of loop?',
         choices: ['6a','6b','6c','6d'],
         answer: 'a'
     },
     {
-        question: 'question 7?',
+        question: 'In javascript, which of the following symbols is accociated with calling an element by its id?',
         choices: ['7a','7b','7c','7d'],
         answer: 'a'
     }
@@ -71,6 +71,7 @@ function startQuiz() {
     setTime();
     renderQuestion();
     startBtn.remove();
+    viewHSBtn.style.visibility = 'hidden';
 };
 
 
@@ -172,6 +173,7 @@ function endGame() {
         result.appendChild(submitHighscore);
         submitHighscore.setAttribute('type','submit');
         submitHighscore.setAttribute('value','Submit');
+        submitHighscore.classList.add('submit-h-s-btn');
         submitHighscore.addEventListener('click', setHighscores);
         
     } else {
@@ -201,7 +203,7 @@ function viewHighscores() {
         caption.textContent = 'No scores to display';
     } else {
         for (var j=0; j<storedScores.length; j++)
-        caption.textContent = storedScores[j].initials + ' - ' + storedScores[j].secondsLeft;
+        caption.textContent = storedScores[j].initials + ' : ' + storedScores[j].secondsLeft;
     };
     // return to first page button
     returnFirstPageBtn = document.createElement('button');

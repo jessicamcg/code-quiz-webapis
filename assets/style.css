@@ -3,6 +3,12 @@
 header {
     display: flex;
     justify-content: space-between;
+    color: green;
+}
+
+.highscores {
+    border: none;
+    color: green;
 }
 
 main {
@@ -10,15 +16,23 @@ main {
     margin: 50px;
 }
 
-h1, p {
+h1 {
+    font-size: 150%;
+}
+
+p {
     padding: 20px;
+    font-size: 120%;
 }
 
 .choices {
     margin: 20px 80px;
 }
 
-.choices button{
+.choices button,
+#result button,
+.start-btn,
+.submit-h-s-btn {
     display: block;
     background-color: green;
     color: white;
@@ -26,4 +40,23 @@ h1, p {
     padding: 10px;
     border: 2px solid white;
     border-radius: 5px;
+}
+
+#result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-btn {
+    margin: 0 auto;
+}
+
+
+button:hover,
+#result button:hover,
+.submit-h-s-btn:hover {
+    background-color: rgb(109, 163, 109);
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
 }
